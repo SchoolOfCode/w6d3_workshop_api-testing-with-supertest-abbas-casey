@@ -1,6 +1,17 @@
 import request from 'supertest'
 
 import app from "../app.js"
+import { pool } from '../db/index.js';
+import { resetUsersTable } from '../db/scripts/reset-table.js';
+
+beforeEach( async () => {
+    await resetUsersTable();
+});
+
+afterAll( async () => {
+    await pool.end();
+});
+
 
 describe("GET /users", () => {
     test("should respond with {success: true, payload: an array of users}", async () => {
