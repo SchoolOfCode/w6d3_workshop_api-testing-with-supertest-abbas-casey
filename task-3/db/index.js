@@ -7,7 +7,7 @@ export const pool = new pg.Pool({
   database: config.DB_DATABASE,
   password: config.DB_PASSWORD,
   port: config.DB_PORT,
-  ssl: {
+  /*ssl: {
     rejectUnauthorized: false,
-  },
+  },*/
 });
