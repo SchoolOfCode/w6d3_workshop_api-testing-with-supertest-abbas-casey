@@ -107,15 +107,18 @@ async function getUsernames() {
     };
 }
 
-test("getUsernames responds with an object with the structure {success: true, payload: an array of objects with the structure { username: any string }}", async () => {
-  const expectedPayload = [{username: expect.any(String)}];
-  
-  const expected = {
-    success: true,
-    payload: expect.arrayContaining(expectedPayload)
-  };
-
-  const actual = await getUsernames();
-
-  expect(actual).toStrictEqual(expected);
+describe("getUsernames", () => {
+    test("responds with an object with the structure {success: true, payload: an array of objects with the structure { username: any string }}", async () => {
+        const expected = {
+            success: true,
+            payload: expect.any(Array)
+        };
+        const actual = await getUsernames();
+    
+        expect(actual).toStrictEqual(expected);
+        actual.payload.forEach( (user) => {
+            const expectedObj = {username: expect.any(String)};
+            expect(user).toStrictEqual(expectedObj);
+        });
+    });
 })

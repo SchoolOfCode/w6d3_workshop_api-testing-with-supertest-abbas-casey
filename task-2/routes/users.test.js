@@ -14,13 +14,12 @@ describe("async function", () => {
                 expect(actual).toStrictEqual(expected);
             })
             .expect((res) => {
-                const actual = res.body.payload;
-                const expected = expect.arrayContaining([{
-                    id: expect.any(Number),
-                    username: expect.any(String),
-                }, ]);
-
-                expect(actual).toStrictEqual(expected);
+                const actualBody = res.body;
+                const expectedBody = {success: true, payload: expect.any(Array)};
+                expect(actualBody).toStrictEqual(expectedBody);
+                actualBody.payload.forEach( (obj) => {
+                    expect(obj).toStrictEqual({id: expect.any(Number), username: expect.any(String)});
+                })
             });
     });
 });
