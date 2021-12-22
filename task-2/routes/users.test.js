@@ -24,3 +24,17 @@ describe("async function", () => {
             });
     });
 });
+
+describe("GET /users/4", () => {
+    it("should give a response with the correct payload structure", async () => {
+        await request(app)
+            .get("/users/4")
+            .expect(200)
+            .expect( (res) => {
+                const expected = { success: true, 
+                                   payload: { id: 4, username: expect.any(String) } };
+                const actual = res.body;
+                expect(actual).toStrictEqual(expected);
+            })
+    });
+});
