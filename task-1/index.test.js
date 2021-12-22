@@ -57,17 +57,30 @@ test("Has the structure { copiesSold: any number, title: any string }", function
  *
  * Since `getAuthentication` is asynchronous, you may need to read up on how to write an asynchronous test in Jest: https://jestjs.io/docs/asynchronous
  */
-test("Has the structure { success: true, payload: { hasAuthenticated: true, isAdmin: false, userId: any number } }", function() {
+test("Has the structure { success: true, payload: { hasAuthenticated: true, isAdmin: false, userId: any number } }", async function() {
     async function getAuthentication() {
         return {
             success: true,
             payload: {
-                isAuthenticated: true,
+                hasAuthenticated: true,
                 isAdmin: false,
                 userId: 125095,
             },
         };
     }
+
+    const expected =  {
+          success: true,
+          payload: {
+          hasAuthenticated: true,
+            isAdmin: false,
+            userId: expect.any(Number)
+          }
+    }
+
+    const actual = await getAuthentication();
+
+    expect(actual).toStrictEqual(expected);
 });
 
 /**
@@ -93,3 +106,16 @@ async function getUsernames() {
         ],
     };
 }
+
+test("getUsernames responds with an object with the structure {success: true, payload: an array of objects with the structure { username: any string }}", async () => {
+  const expectedPayload = [{username: expect.any(String)}];
+  
+  const expected = {
+    success: true,
+    payload: expect.arrayContaining(expectedPayload)
+  };
+
+  const actual = await getUsernames();
+
+  expect(actual).toStrictEqual(expected);
+})
