@@ -11,10 +11,14 @@
  *      success: true
  *    }
  */
-test("Has the structure { success: true }", function () {
-  const apiResponse = {
-    success: true,
-  };
+test("Has the structure { success: true }", function() {
+    const apiResponse = {
+        success: true,
+    };
+    const expected = {
+        success: true,
+    };
+    expect(apiResponse).toStrictEqual(expected);
 });
 
 /**
@@ -27,11 +31,16 @@ test("Has the structure { success: true }", function () {
  *
  * If you're stuck on how to match any number/string, have a look at: https://jestjs.io/docs/expect#expectanyconstructor
  */
-test("Has the structure { copiesSold: any number, title: any string }", function () {
-  const apiResponse = {
-    copiesSold: 5014,
-    title: "THE LIGHTHOUSE (1984)",
-  };
+test("Has the structure { copiesSold: any number, title: any string }", function() {
+    const apiResponse = {
+        copiesSold: 5014,
+        title: "THE LIGHTHOUSE (1984)",
+    };
+    const expected = {
+        copiesSold: expect.any(Number),
+        title: expect.any(String),
+    };
+    expect(apiResponse).toStrictEqual(expected);
 });
 
 /**
@@ -48,17 +57,17 @@ test("Has the structure { copiesSold: any number, title: any string }", function
  *
  * Since `getAuthentication` is asynchronous, you may need to read up on how to write an asynchronous test in Jest: https://jestjs.io/docs/asynchronous
  */
-test("Has the structure { success: true, payload: { hasAuthenticated: true, isAdmin: false, userId: any number } }", function () {
-  async function getAuthentication() {
-    return {
-      success: true,
-      payload: {
-        isAuthenticated: true,
-        isAdmin: false,
-        userId: 125095,
-      },
-    };
-  }
+test("Has the structure { success: true, payload: { hasAuthenticated: true, isAdmin: false, userId: any number } }", function() {
+    async function getAuthentication() {
+        return {
+            success: true,
+            payload: {
+                isAuthenticated: true,
+                isAdmin: false,
+                userId: 125095,
+            },
+        };
+    }
 });
 
 /**
@@ -74,13 +83,13 @@ test("Has the structure { success: true, payload: { hasAuthenticated: true, isAd
  * Since `getUsernames` is asynchronous, you may need to read up on how to write an asynchronous test in Jest: https://jestjs.io/docs/asynchronous
  */
 async function getUsernames() {
-  return {
-    success: true,
-    payload: [
-      { username: "A" },
-      { username: "B" },
-      { username: "C" },
-      { username: "D" },
-    ],
-  };
+    return {
+        success: true,
+        payload: [
+            { username: "A" },
+            { username: "B" },
+            { username: "C" },
+            { username: "D" },
+        ],
+    };
 }
